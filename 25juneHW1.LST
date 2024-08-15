@@ -1,0 +1,130 @@
+SQL> select max(sal) from emp where sal <(select max(sal) from emp);
+
+  MAX(SAL)                                                                      
+----------                                                                      
+      3000                                                                      
+
+SQL> select dname from emp where deptno=(select max(sal) from emp where sal <(select max(sal) from emp where sal<(select max(sal) from emp));
+select dname from emp where deptno=(select max(sal) from emp where sal <(select max(sal) from emp where sal<(select max(sal) from emp))
+                                    *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> select * from dep;
+select * from dep
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from dept;
+
+    DEPTNO DNAME          LOC                                                   
+---------- -------------- -------------                                         
+        10 ACCOUNTING     NEW YORK                                              
+        20 RESEARCH       DALLAS                                                
+        30 SALES          CHICAGO                                               
+        40 OPERATIONS     BOSTON                                                
+
+SQL> select dname from dept where deptno=(select max(sal) from emp where sal(select max(sal) from emp where sal(select max(sal) from emp);
+select dname from dept where deptno=(select max(sal) from emp where sal(select max(sal) from emp where sal(select max(sal) from emp)
+                                     *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> select dname from dept where sal =(select max(sal) from emp where sal(select max(sal) from emp where sal(select max(sal) from emp);
+select dname from dept where sal =(select max(sal) from emp where sal(select max(sal) from emp where sal(select max(sal) from emp)
+                                   *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> select dname from dept where deptno=(select deptno,max(sal) from emp where sal(select max(sal) from emp where sal(select max(sal) from emp);
+select dname from dept where deptno=(select deptno,max(sal) from emp where sal(select max(sal) from emp where sal(select max(sal) from emp)
+                                     *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> select dname from emp
+  2  where sal=(select sal from emp
+  3  where sal<(select max(sal) from emp
+  4  order by sal
+  5  where rownum<=3));
+order by sal
+*
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL>  select dname from emp
+  2   where sal=(select sal from emp
+  3   where sal<(select max(sal) from emp
+  4   order by sal
+  5  where rownum<=3)));
+ order by sal
+ *
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select dname from emp
+  2  where sal=(select sal from emp)
+  3   where sal<(select max(sal) from emp
+  4   order by sal
+  5  where rownum<=3);
+ where sal<(select max(sal) from emp
+ *
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select * from emp
+  2  where ename='SM
+  3  
+SQL> 
+SQL> SELECT * FROM EMP
+  2  WHERE ENAME='SMITH');
+WHERE ENAME='SMITH')
+                   *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL>  SELECT * FROM EMP
+  2   WHERE ENAME='SMITH';
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     
+---------- ---------- --------- ---------- ---------- ---------- ----------     
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-12-1980        800                
+        20                                                                      
+                                                                                
+
+SQL> SELECT * FROM EMP
+  2  WHERE ENAME='SMITH' AND SELECT MGR FROM EMP
+  3  WHERE ENAME='SMITH';
+WHERE ENAME='SMITH' AND SELECT MGR FROM EMP
+                        *
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> SELECT MGR FROM EMP
+  2  WHERE ENAME='SMITH';
+
+       MGR                                                                      
+----------                                                                      
+      7902                                                                      
+
+SQL> select * from emp where deptno=(select deptno from deptno where ename='smith');
+select * from emp where deptno=(select deptno from deptno where ename='smith')
+                                                   *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> spool off

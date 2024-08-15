@@ -1,0 +1,244 @@
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     
+---------- ---------- --------- ---------- ---------- ---------- ----------     
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-12-1980        800                
+        20                                                                      
+                                                                                
+      7499 ALLEN      SALESMAN        7698 20-02-1981       1600        300     
+        30                                                                      
+                                                                                
+      7521 WARD       SALESMAN        7698 22-02-1981       1250        500     
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     
+---------- ---------- --------- ---------- ---------- ---------- ----------     
+    DEPTNO                                                                      
+----------                                                                      
+      7566 JONES      MANAGER         7839 02-04-1981       2975                
+        20                                                                      
+                                                                                
+      7654 MARTIN     SALESMAN        7698 28-09-1981       1250       1400     
+        30                                                                      
+                                                                                
+      7698 BLAKE      MANAGER         7839 01-05-1981       2850                
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     
+---------- ---------- --------- ---------- ---------- ---------- ----------     
+    DEPTNO                                                                      
+----------                                                                      
+      7782 CLARK      MANAGER         7839 09-06-1981       2450                
+        10                                                                      
+                                                                                
+      7788 SCOTT      ANALYST         7566 19-04-1987       3000                
+        20                                                                      
+                                                                                
+      7839 KING       PRESIDENT            17-11-1981       5000                
+        10                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     
+---------- ---------- --------- ---------- ---------- ---------- ----------     
+    DEPTNO                                                                      
+----------                                                                      
+      7844 TURNER     SALESMAN        7698 08-09-1981       1500          0     
+        30                                                                      
+                                                                                
+      7876 ADAMS      CLERK           7788 23-05-1987       1100                
+        20                                                                      
+                                                                                
+      7900 JAMES      CLERK           7698 03-12-1981        950                
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     
+---------- ---------- --------- ---------- ---------- ---------- ----------     
+    DEPTNO                                                                      
+----------                                                                      
+      7902 FORD       ANALYST         7566 03-12-1981       3000                
+        20                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-01-1982       1300                
+        10                                                                      
+                                                                                
+
+14 rows selected.
+
+SQL> SELECT SAL FROM EMP;
+
+       SAL                                                                      
+----------                                                                      
+       800                                                                      
+      1600                                                                      
+      1250                                                                      
+      2975                                                                      
+      1250                                                                      
+      2850                                                                      
+      2450                                                                      
+      3000                                                                      
+      5000                                                                      
+      1500                                                                      
+      1100                                                                      
+
+       SAL                                                                      
+----------                                                                      
+       950                                                                      
+      3000                                                                      
+      1300                                                                      
+
+14 rows selected.
+
+SQL> SELECT SAL+500 FROM EMP;
+
+   SAL+500                                                                      
+----------                                                                      
+      1300                                                                      
+      2100                                                                      
+      1750                                                                      
+      3475                                                                      
+      1750                                                                      
+      3350                                                                      
+      2950                                                                      
+      3500                                                                      
+      5500                                                                      
+      2000                                                                      
+      1600                                                                      
+
+   SAL+500                                                                      
+----------                                                                      
+      1450                                                                      
+      3500                                                                      
+      1800                                                                      
+
+14 rows selected.
+
+SQL> SELECT ENAME FROM EMP SAL*12;
+SELECT ENAME FROM EMP SAL*12
+                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT ENAME,SAL*12 FROM EMP;
+
+ENAME          SAL*12                                                           
+---------- ----------                                                           
+SMITH            9600                                                           
+ALLEN           19200                                                           
+WARD            15000                                                           
+JONES           35700                                                           
+MARTIN          15000                                                           
+BLAKE           34200                                                           
+CLARK           29400                                                           
+SCOTT           36000                                                           
+KING            60000                                                           
+TURNER          18000                                                           
+ADAMS           13200                                                           
+
+ENAME          SAL*12                                                           
+---------- ----------                                                           
+JAMES           11400                                                           
+FORD            36000                                                           
+MILLER          15600                                                           
+
+14 rows selected.
+
+SQL> SELECT SAL/2,ENAME FROM EMP WHERE JOB='ANALYST';
+
+     SAL/2 ENAME                                                                
+---------- ----------                                                           
+      1500 SCOTT                                                                
+      1500 FORD                                                                 
+
+SQL> SELECT COMM/2,SAL+SAL*.3 FROM EMP;
+
+    COMM/2 SAL+SAL*.3                                                           
+---------- ----------                                                           
+                 1040                                                           
+       150       2080                                                           
+       250       1625                                                           
+               3867,5                                                           
+       700       1625                                                           
+                 3705                                                           
+                 3185                                                           
+                 3900                                                           
+                 6500                                                           
+         0       1950                                                           
+                 1430                                                           
+
+    COMM/2 SAL+SAL*.3                                                           
+---------- ----------                                                           
+                 1235                                                           
+                 3900                                                           
+                 1690                                                           
+
+14 rows selected.
+
+SQL> SELECT * FROM EMP WHERE SAL>2000;
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     
+---------- ---------- --------- ---------- ---------- ---------- ----------     
+    DEPTNO                                                                      
+----------                                                                      
+      7566 JONES      MANAGER         7839 02-04-1981       2975                
+        20                                                                      
+                                                                                
+      7698 BLAKE      MANAGER         7839 01-05-1981       2850                
+        30                                                                      
+                                                                                
+      7782 CLARK      MANAGER         7839 09-06-1981       2450                
+        10                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     
+---------- ---------- --------- ---------- ---------- ---------- ----------     
+    DEPTNO                                                                      
+----------                                                                      
+      7788 SCOTT      ANALYST         7566 19-04-1987       3000                
+        20                                                                      
+                                                                                
+      7839 KING       PRESIDENT            17-11-1981       5000                
+        10                                                                      
+                                                                                
+      7902 FORD       ANALYST         7566 03-12-1981       3000                
+        20                                                                      
+                                                                                
+
+6 rows selected.
+
+SQL> SELECT ENAME FROM EMP WHERE SAL=3000;
+
+ENAME                                                                           
+----------                                                                      
+SCOTT                                                                           
+FORD                                                                            
+
+SQL> SELECT EMPNO,ENAME,SAL*12,COMM/2 FROM EMP WHERE JOB!='SALESMAN';
+
+     EMPNO ENAME          SAL*12     COMM/2                                     
+---------- ---------- ---------- ----------                                     
+      7369 SMITH            9600                                                
+      7566 JONES           35700                                                
+      7698 BLAKE           34200                                                
+      7782 CLARK           29400                                                
+      7788 SCOTT           36000                                                
+      7839 KING            60000                                                
+      7876 ADAMS           13200                                                
+      7900 JAMES           11400                                                
+      7902 FORD            36000                                                
+      7934 MILLER          15600                                                
+
+10 rows selected.
+
+SQL> SELECT DEPTNO,HIREDATE FROM EMP WHERE COMM >=1000;
+
+    DEPTNO HIREDATE                                                             
+---------- ----------                                                           
+        30 28-09-1981                                                           
+
+SQL> SPOOL OFF;

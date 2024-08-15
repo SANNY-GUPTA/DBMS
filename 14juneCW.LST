@@ -1,0 +1,241 @@
+SQL> show * from tmp;
+SP2-0158: unknown SHOW option "*"
+SP2-0158: unknown SHOW option "from"
+SP2-0158: unknown SHOW option "tmp"
+SQL> desc author;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ AID                                       NOT NULL NUMBER(10)
+ ANAME                                     NOT NULL VARCHAR2(10)
+ AAGE                                               NUMBER(2)
+ AGENDER                                            VARCHAR2(10)
+ BID                                                NUMBER(3)
+
+SQL> desc book
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BID                                       NOT NULL NUMBER(3)
+ BNAME                                     NOT NULL VARCHAR2(15)
+ BPRICE                                             NUMBER
+ BHEADING                                           VARCHAR2(20)
+
+SQL> desc customer;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(8)
+ CNAME                                     NOT NULL VARCHAR2(10)
+ CAGE                                               NUMBER(2)
+ CGENDER                                            VARCHAR2(10)
+
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PID                                       NOT NULL NUMBER(12)
+ PNAME                                     NOT NULL VARCHAR2(20)
+ PEXPIRY                                   NOT NULL NUMBER(10)
+ PPRICE                                    NOT NULL NUMBER(4)
+ CID                                                NUMBER(8)
+
+SQL> alter table product add pitem number(3);
+
+Table altered.
+
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PID                                       NOT NULL NUMBER(12)
+ PNAME                                     NOT NULL VARCHAR2(20)
+ PEXPIRY                                   NOT NULL NUMBER(10)
+ PPRICE                                    NOT NULL NUMBER(4)
+ CID                                                NUMBER(8)
+ PITEM                                              NUMBER(3)
+
+SQL> alter table product
+  2  rename column pexpiry to pexp;
+
+Table altered.
+
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PID                                       NOT NULL NUMBER(12)
+ PNAME                                     NOT NULL VARCHAR2(20)
+ PEXP                                      NOT NULL NUMBER(10)
+ PPRICE                                    NOT NULL NUMBER(4)
+ CID                                                NUMBER(8)
+ PITEM                                              NUMBER(3)
+
+SQL> alter table product
+  2  drop column pitem;
+
+Table altered.
+
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PID                                       NOT NULL NUMBER(12)
+ PNAME                                     NOT NULL VARCHAR2(20)
+ PEXP                                      NOT NULL NUMBER(10)
+ PPRICE                                    NOT NULL NUMBER(4)
+ CID                                                NUMBER(8)
+
+SQL> alter table product
+  2  modify pprice varchar(3);
+
+Table altered.
+
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PID                                       NOT NULL NUMBER(12)
+ PNAME                                     NOT NULL VARCHAR2(20)
+ PEXP                                      NOT NULL NUMBER(10)
+ PPRICE                                    NOT NULL VARCHAR2(3)
+ CID                                                NUMBER(8)
+
+SQL> drop table customer;
+drop table customer
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> drop table product;
+
+Table dropped.
+
+SQL> desc product;
+ERROR:
+ORA-04043: object product does not exist 
+
+
+SQL> show recyclebin;
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME          
+---------------- ------------------------------ ------------ -------------------
+PRODUCT          BIN$R2AySW1fRl+2Peck+mZQ6A==$0 TABLE        2024-06-14:16:07:35
+SQL> flashback table product before drop;
+flashback table product before drop
+                               *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> flashback table product to before drop;
+
+Flashback complete.
+
+SQL> show recyclebin;
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PID                                       NOT NULL NUMBER(12)
+ PNAME                                     NOT NULL VARCHAR2(20)
+ PEXP                                      NOT NULL NUMBER(10)
+ PPRICE                                    NOT NULL VARCHAR2(3)
+ CID                                                NUMBER(8)
+
+SQL> drop product;
+drop product
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop table product;
+
+Table dropped.
+
+SQL> drop table customer;
+
+Table dropped.
+
+SQL> drop table book;
+drop table book
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> drop table author;
+
+Table dropped.
+
+SQL> drop table bool
+  2  ;
+drop table bool
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> drop table book;
+
+Table dropped.
+
+SQL> show recyclebin;
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME          
+---------------- ------------------------------ ------------ -------------------
+AUTHOR           BIN$l53AvuJcR66/iG8eFzQ/NA==$0 TABLE        2024-06-14:16:10:11
+BOOK             BIN$dmxMhe9MQa62/s6gbf7CzA==$0 TABLE        2024-06-14:16:10:28
+CUSTOMER         BIN$TTN3mgM4QE66PL++H8Qi/w==$0 TABLE        2024-06-14:16:09:54
+PRODUCT          BIN$tVaUtiZ2QkC9cKrvEPPwEQ==$0 TABLE        2024-06-14:16:09:46
+SQL> flashback table book to before drop;
+
+Flashback complete.
+
+SQL> desc author;
+ERROR:
+ORA-04043: object author does not exist 
+
+
+SQL> desc book;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BID                                       NOT NULL NUMBER(3)
+ BNAME                                     NOT NULL VARCHAR2(15)
+ BPRICE                                             NUMBER
+ BHEADING                                           VARCHAR2(20)
+
+SQL> show recyclebin;
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME          
+---------------- ------------------------------ ------------ -------------------
+AUTHOR           BIN$l53AvuJcR66/iG8eFzQ/NA==$0 TABLE        2024-06-14:16:10:11
+CUSTOMER         BIN$TTN3mgM4QE66PL++H8Qi/w==$0 TABLE        2024-06-14:16:09:54
+PRODUCT          BIN$tVaUtiZ2QkC9cKrvEPPwEQ==$0 TABLE        2024-06-14:16:09:46
+SQL> purge table book;
+purge table book
+*
+ERROR at line 1:
+ORA-38307: object not in RECYCLE BIN 
+
+
+SQL> purge table author;
+
+Table purged.
+
+SQL> show recyclebin;
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME          
+---------------- ------------------------------ ------------ -------------------
+CUSTOMER         BIN$TTN3mgM4QE66PL++H8Qi/w==$0 TABLE        2024-06-14:16:09:54
+PRODUCT          BIN$tVaUtiZ2QkC9cKrvEPPwEQ==$0 TABLE        2024-06-14:16:09:46
+SQL> purge table author;
+purge table author
+*
+ERROR at line 1:
+ORA-38307: object not in RECYCLE BIN 
+
+
+SQL> purged recyclebin;
+SP2-0734: unknown command beginning "purged rec..." - rest of line ignored.
+SQL> purged recyclebin;
+SP2-0734: unknown command beginning "purged rec..." - rest of line ignored.
+SQL> purged recyclebin;
+SP2-0734: unknown command beginning "purged rec..." - rest of line ignored.
+SQL> show recyclebin;
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME          
+---------------- ------------------------------ ------------ -------------------
+CUSTOMER         BIN$TTN3mgM4QE66PL++H8Qi/w==$0 TABLE        2024-06-14:16:09:54
+PRODUCT          BIN$tVaUtiZ2QkC9cKrvEPPwEQ==$0 TABLE        2024-06-14:16:09:46
+SQL> purged table recyclebin;
+SP2-0734: unknown command beginning "purged tab..." - rest of line ignored.
+SQL> spool off
